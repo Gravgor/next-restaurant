@@ -19,12 +19,13 @@ Most of the components are already created, you need to focus on creating the da
 
 #### 1. **Pull repository and set up environment**
 
-Pull this repository and set up Postgres database locally using the
+Pull this repository and set up a Postgres database locally using
+
 ```
 docker-compose up
 ```
 
-It should create a postgres database locally on your computer.
+It should create a postgres database locally.
 
 #### 2. **Create the Data Model**
 
@@ -34,7 +35,7 @@ Our database should contain meal and order tables which will allow multiple orde
 
 ```
 Meal:
-  1. ID
+  1. id
   2. name
   3. price
   4. orders
@@ -42,7 +43,7 @@ Meal:
 
 ```
 Order:
-  1. ID
+  1. id
   2. date of creation
   3. meals
 ```
@@ -71,7 +72,7 @@ and run it (`npm run seed`)
 
 - Create an order:
   - Complete the order form in `create-order.tsx` component (use react-hook-form or any other form library)
-  - User should be able to select a meal and increment/decrement the quantity 
+  - User should be able to select a meal and increment/decrement the quantity
   - Provide type safety and form validation (zod or any other validation library can be used)
   - Create an order record in the database and refresh the order list page
 - List all orders displaying the `order id`, `creation date` and `all meals` with `quantity`, `meal price` and `total price` of order
