@@ -1,7 +1,24 @@
 import { prisma } from "../src/config/prisma.config";
 
 // TODO: seed meals
-const meals = [];
+const meals = [
+  {
+    name: "Salmon Nigiri",
+    price: 24.49,
+  },
+  {
+    name: "Tuna Roll",
+    price: 21.99,
+  },
+  {
+    name: "Eel Avocado",
+    price: 22.99,
+  },
+  {
+    name: "California Roll",
+    price: 23.49
+  }
+];
 
 async function main() {
   await prisma.meal.createMany({

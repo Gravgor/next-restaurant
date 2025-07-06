@@ -14,22 +14,33 @@ datasource db {
   url       = env("DATABASE_URL")
 }
 
-
 model Meal {
-  id        Int      @id @default(autoincrement())
+  id        Int           @id @default(autoincrement())
   name      String
-  price     Int
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  order     Order[]  @relation("OrderMeal")
+  price     Float
+  currency  String       @default("USD")
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+  orders    OrderMeal[]
   @@map("meals")
 }
 
 model Order {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  meals     Meal[]   @relation("OrderMeal")
-
+  id         Int          @id @default(autoincrement())
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+  meals      OrderMeal[]
+  totalPrice Float        @default(0)
+  currency   String       @default("USD")
   @@map("orders")
+}
+
+model OrderMeal {
+  id        Int      @id @default(autoincrement())
+  order     Order    @relation(fields: [orderId], references: [id])
+  orderId   Int
+  meal      Meal     @relation(fields: [mealId], references: [id])
+  mealId    Int
+  quantity  Int
+  @@map("order_meals")
 }
