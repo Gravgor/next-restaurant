@@ -2,6 +2,7 @@ import React from "react";
 
 import { OrderManager } from "@/app/(main)/manager/order-manager";
 import { prisma } from "@/config/prisma.config";
+import { OrderModel } from "@/models/order.model";
 
 export async function MainPage() {
   const orders = await prisma.order.findMany({
@@ -23,14 +24,14 @@ export async function MainPage() {
       </header>
 
       <div className="flex flex-col gap-4">
-        {orders.length > 0 ? orders.map((order, index) => {
+        {orders.length > 0 ? orders.map((order: OrderModel, index) => {
           const totalPrice = order.meals.reduce((acc, meal) => acc + meal.meal.price * meal.quantity, 0);
 
           return (
             <div key={index} className="border rounded-md p-6">
               <div className="flex justify-between">
                 <span>Order #{order.id}</span>
-                <span>{new Date(order.createdAt).toLocaleString()}</span>
+                <span>{order.createdAt.toLocaleString()}</span>
               </div>
 
               <div className="mt-4">
@@ -39,7 +40,7 @@ export async function MainPage() {
                 ))}
 
                 <div className="w-full flex justify-end">
-                  <span>Total price: {totalPrice} {order.currency}</span>
+                  <span>Total price: {totalPrice.toFixed(2)} {order.currency}</span>
                 </div>
               </div>
             </div>
