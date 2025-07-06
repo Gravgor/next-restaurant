@@ -36,7 +36,10 @@ export async function MainPage() {
 
               <div className="mt-4">
                 {order.meals.map((meal) => (
-                  <div key={meal.id}>{meal.meal.name} x {meal.quantity}</div>
+                  <div key={meal.id} className="flex justify-between">
+                    <span>{meal.meal.name} x {meal.quantity} ({meal.meal.currency} {meal.meal.price.toFixed(2)} each)</span>
+                    <span>{meal.meal.currency} {(meal.meal.price * meal.quantity).toFixed(2)}</span>
+                  </div>
                 ))}
 
                 <div className="w-full flex justify-end">
