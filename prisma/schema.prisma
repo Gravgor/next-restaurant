@@ -13,3 +13,23 @@ datasource db {
   provider  = "postgresql"
   url       = env("DATABASE_URL")
 }
+
+
+model Meal {
+  id        Int      @id @default(autoincrement())
+  name      String
+  price     Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  order     Order[]  @relation("OrderMeal")
+  @@map("meals")
+}
+
+model Order {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  meals     Meal[]   @relation("OrderMeal")
+
+  @@map("orders")
+}
